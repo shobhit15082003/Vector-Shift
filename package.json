@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "daisyui": "^5.0.43"
+  },
+  "dependencies": {
+    "framer-motion": "^12.15.0",
+    "styled-components": "^6.1.18"
+  }
+}

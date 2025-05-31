@@ -12,7 +12,7 @@ import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
 
 import 'reactflow/dist/style.css';
-import { Button } from './components/ui/moving-border';
+
 
 
 const gridSize = 20;
@@ -93,7 +93,7 @@ export const PipelineUI = () => {
     
     <div
       ref={reactFlowWrapper}
-      className="w-[98vw] mx-4 h-[72vh] rounded-lg shadow-md overflow-hidden mb-5 border border-gray-300 dark:border-gray-600"
+      className="w-[98vw] mx-4 h-[72vh] bg-white rounded-lg shadow-md overflow-hidden mb-5 border border-gray-300 dark:border-gray-600"
     >
       <ReactFlow
         nodes={nodes}
