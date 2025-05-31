@@ -1,5 +1,3 @@
-// /frontend/src/nodes/PrimaryNode.jsx
-
 import { Handle, Position } from 'reactflow';
 
 export const PrimaryNode = ({
