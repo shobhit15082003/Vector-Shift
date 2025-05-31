@@ -1,6 +1,7 @@
 // toolbar.js
 import { DraggableNode } from "./draggableNode";
-import { ThemeToggle } from "./ThemeToggle";
+import ThemeToggle from "./ThemeToggle";
+
 
 
 export const PipelineToolbar = () => {
@@ -19,7 +20,7 @@ export const PipelineToolbar = () => {
       </div>
       
       <div>
-      
+      <ThemeToggle/>
       </div>
     </div>
   );
