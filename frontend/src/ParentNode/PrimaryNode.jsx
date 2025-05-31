@@ -1,4 +1,4 @@
-import { Handle, Position } from 'reactflow';
+import { Handle } from 'reactflow';
 
 export const PrimaryNode = ({
   id,
@@ -8,6 +8,8 @@ export const PrimaryNode = ({
   children,
   state,
   setState,
+  containerStyle = {},
+  containerRef = null,
 }) => {
   const handleChange = (key, value) => {
     setState((prev) => ({
@@ -17,19 +19,31 @@ export const PrimaryNode = ({
   };
 
   return (
-    <div style={{ width: 200, border: '1px solid black', padding: 8 }}>
+    <div
+      ref={containerRef}
+      style={{
+        width: 200,
+        border: '1px solid black',
+        padding: 8,
+        boxSizing: 'border-box',
+        ...containerStyle,
+      }}
+    >
       <div style={{ fontWeight: 'bold', marginBottom: 4 }}>{title}</div>
 
-      {fields.map(({ label, key, type, options }) => (
+      {fields.map(({ label, key, type, options, inputProps = {} }) => (
         <label key={key} style={{ display: 'block', marginBottom: 4 }}>
           {label}:
           {type === 'select' ? (
             <select
               value={state[key]}
               onChange={(e) => handleChange(key, e.target.value)}
+              {...inputProps}
             >
               {options.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
+                <option key={opt} value={opt}>
+                  {opt}
+                </option>
               ))}
             </select>
           ) : (
@@ -37,6 +51,7 @@ export const PrimaryNode = ({
               type={type}
               value={state[key]}
               onChange={(e) => handleChange(key, e.target.value)}
+              {...inputProps}
             />
           )}
         </label>
