@@ -1,12 +1,11 @@
 import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from './store';
-import { shallow } from 'zustand/shallow';
 import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
-import {ImageNode} from './nodes/imageNode';
+import { ImageNode } from './nodes/imageNode';
 import 'reactflow/dist/style.css';
 import { MathNode } from './nodes/MathNode';
 import { ToggleNode } from './nodes/ToggleNode';
@@ -23,28 +22,18 @@ const nodeTypes = {
   toggle: ToggleNode,
 };
 
-const selector = (state) => ({
-  nodes: state.nodes,
-  edges: state.edges,
-  getNodeID: state.getNodeID,
-  addNode: state.addNode,
-  onNodesChange: state.onNodesChange,
-  onEdgesChange: state.onEdgesChange,
-  onConnect: state.onConnect,
-});
-
 export const PipelineUI = () => {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-  const {
-    nodes,
-    edges,
-    getNodeID,
-    addNode,
-    onNodesChange,
-    onEdgesChange,
-    onConnect,
-  } = useStore(selector, shallow);
+  
+  // Access store values directly
+  const nodes = useStore((state) => state.nodes);
+  const edges = useStore((state) => state.edges);
+  const getNodeID = useStore((state) => state.getNodeID);
+  const addNode = useStore((state) => state.addNode);
+  const onNodesChange = useStore((state) => state.onNodesChange);
+  const onEdgesChange = useStore((state) => state.onEdgesChange);
+  const onConnect = useStore((state) => state.onConnect);
 
   const getInitNodeData = (nodeID, type) => {
     return { id: nodeID, nodeType: `${type}` };
@@ -55,28 +44,32 @@ export const PipelineUI = () => {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      if (event?.dataTransfer?.getData('application/reactflow')) {
-        const appData = JSON.parse(event.dataTransfer.getData('application/reactflow'));
-        const type = appData?.nodeType;
+      const data = event.dataTransfer?.getData('application/reactflow');
+      
+      if (data) {
+        try {
+          const appData = JSON.parse(data);
+          const type = appData?.nodeType;
 
-        if (!type) {
-          return;
+          if (type && reactFlowInstance) {
+            const position = reactFlowInstance.project({
+              x: event.clientX - reactFlowBounds.left,
+              y: event.clientY - reactFlowBounds.top,
+            });
+
+            const nodeID = getNodeID(type);
+            const newNode = {
+              id: nodeID,
+              type,
+              position,
+              data: getInitNodeData(nodeID, type),
+            };
+
+            addNode(newNode);
+          }
+        } catch (error) {
+          console.error('Error parsing dropped node data:', error);
         }
-
-        const position = reactFlowInstance.project({
-          x: event.clientX - reactFlowBounds.left,
-          y: event.clientY - reactFlowBounds.top,
-        });
-
-        const nodeID = getNodeID(type);
-        const newNode = {
-          id: nodeID,
-          type,
-          position,
-          data: getInitNodeData(nodeID, type),
-        };
-
-        addNode(newNode);
       }
     },
     [reactFlowInstance, getNodeID, addNode]
@@ -106,15 +99,14 @@ export const PipelineUI = () => {
         snapGrid={[gridSize, gridSize]}
         connectionLineType="smoothstep"
         minZoom={0.5}
+        fitView
       >
-        
         <Background 
           variant="dots"
           color="#94a3b8"  
-          darkColor="#38465a"  
           gap={gridSize}
           size={1.5} 
-          className="opacity-80" 
+          className="opacity-80 dark:opacity-60" 
         />
         
         <Controls 
@@ -127,8 +119,8 @@ export const PipelineUI = () => {
         
         <MiniMap 
           nodeColor="#e2e8f0"
-          darkNodeColor="#4a5568"
-          className="bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden transition duration-300 ease-in-out hover:scale-105  hover:border-slate-500 hover:dark:border-blue-800
+          maskColor="rgba(0, 0, 0, 0.05)"
+          className="bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden transition duration-300 ease-in-out hover:scale-105 hover:border-slate-500 hover:dark:border-blue-800
                      max-sm:scale-75 max-sm:bottom-2 max-sm:right-2 max-sm:hover:scale-90"
           zoomable
           pannable
