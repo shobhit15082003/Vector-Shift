@@ -32,18 +32,18 @@ export const TextNode = ({ id, data }) => {
       // Reset height to get accurate scrollHeight
       textarea.style.height = 'auto';
       
-      // Calculate new dimensions
-      const minWidth = 200;
-      const maxWidth = 400;
-      const minHeight = 120;
+      // Calculate new dimensions with mobile adjustments
+      const minWidth = window.innerWidth < 640 ? 160 : 200; // Smaller min width on mobile
+      const maxWidth = window.innerWidth < 640 ? 300 : 400; // Smaller max width on mobile
+      const minHeight = window.innerWidth < 640 ? 100 : 120; // Smaller min height on mobile
       
       const contentWidth = Math.max(
         textarea.scrollWidth,
-        minWidth - 40 // account for padding
+        minWidth - (window.innerWidth < 640 ? 20 : 40) // account for padding
       );
       
-      const newWidth = Math.min(maxWidth, contentWidth + 40);
-      const newHeight = Math.max(minHeight, textarea.scrollHeight + 80);
+      const newWidth = Math.min(maxWidth, contentWidth + (window.innerWidth < 640 ? 20 : 40));
+      const newHeight = Math.max(minHeight, textarea.scrollHeight + (window.innerWidth < 640 ? 40 : 80));
       
       // Apply new dimensions
       textarea.style.height = `${textarea.scrollHeight}px`;
@@ -51,23 +51,23 @@ export const TextNode = ({ id, data }) => {
     }
   }, [state.text]);
 
-  // Generate handles for variables
+  // Generate handles for variables with mobile spacing
   const handles = [
     ...variables.map((v, idx) => ({
       type: 'target',
       position: Position.Left,
       id: v,
-      className: "bg-purple-500 dark:bg-purple-400",
+      className: "bg-purple-500 dark:bg-purple-400 max-sm:w-2 max-sm:h-2",
       style: { 
-        top: `${20 + idx * 24}px`,
+        top: `${(window.innerWidth < 640 ? 15 : 20) + idx * (window.innerWidth < 640 ? 18 : 24)}px`,
       },
-      data: { label: v } // Optional: show variable name on hover
+      data: { label: v }
     })),
     { 
       type: 'source', 
       position: Position.Right, 
       id: 'output',
-      className: "bg-blue-500 dark:bg-blue-400"
+      className: "bg-blue-500 dark:bg-blue-400 max-sm:w-2 max-sm:h-2"
     },
   ];
 
@@ -88,7 +88,7 @@ export const TextNode = ({ id, data }) => {
               w-full p-2 border border-gray-300 dark:border-gray-600 rounded
               bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
               focus:ring-1 focus:ring-blue-500 resize-none overflow-hidden
-              min-h-[60px]
+              min-h-[60px] max-sm:min-h-[40px] max-sm:p-1 max-sm:text-sm
             `,
             placeholder: "Enter text with {{variables}}...",
             value: state.text,
@@ -106,7 +106,7 @@ export const TextNode = ({ id, data }) => {
       containerRef={containerRef}
     >
       {variables.length > 0 && (
-        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400 max-sm:text-xxs">
           Variables: {variables.join(', ')}
         </div>
       )}

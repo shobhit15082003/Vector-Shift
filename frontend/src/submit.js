@@ -3,7 +3,7 @@ import { Button } from "./components/ui/moving-border";
 
 export const SubmitButton = () => {
   return (
-    <div className="flex items-center justify-center w-full mb-4 px-2 max-sm:mb-3">
+    <div className="flex items-center justify-center w-full  px-2 max-sm:mb-3">
       <Button 
         type="submit"
         className="text-lg sm:text-2xl font-medium tracking-wide transition-all duration-300
@@ -17,7 +17,10 @@ export const SubmitButton = () => {
         shadow-sm hover:shadow-md
         px-6 py-2 sm:px-8 sm:py-3 rounded-lg
         w-full sm:w-auto max-w-md
-        max-sm:text-base max-sm:px-4 max-sm:py-2"  
+        max-sm:text-base max-sm:px-4 max-sm:py-2
+        
+        "  
+        
       >
         Submit
       </Button>

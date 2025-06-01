@@ -19,24 +19,24 @@ export const PrimaryNode = ({
       [key]: value,
     }));
   };
-  
 
   return (
     <div
       ref={containerRef}
       className={`
-        w-[200px] border border-gray-300 dark:border-gray-600 p-2
+        w-[200px] sm:w-[220px] border border-gray-300 dark:border-gray-600 p-2
         bg-white dark:bg-gray-800 rounded-lg shadow-sm
         transition-colors duration-200
+        max-sm:w-[180px] max-sm:p-1.5
       `}
       style={containerStyle}
     >
-      <div className="font-bold text-gray-800 dark:text-gray-100 mb-1">
+      <div className="font-bold text-gray-800 dark:text-gray-100 mb-1 max-sm:text-sm">
         {title}
       </div>
 
       {fields.map(({ label, key, type, options, inputProps = {} }) => (
-        <label key={key} className="block mb-1 text-sm text-gray-700 dark:text-gray-300">
+        <label key={key} className="block mb-1 text-sm text-gray-700 dark:text-gray-300 max-sm:text-xs">
           {label}
           {type === 'select' ? (
             <select
@@ -44,6 +44,7 @@ export const PrimaryNode = ({
                 w-full mt-1 p-1 border border-gray-300 dark:border-gray-600 rounded
                 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
                 focus:ring-1 focus:ring-blue-500 focus:border-blue-500
+                max-sm:text-xs max-sm:p-0.5
               `}
               value={state[key]}
               onChange={(e) => handleChange(key, e.target.value)}
@@ -61,6 +62,7 @@ export const PrimaryNode = ({
                 w-full mt-1 p-1 border border-gray-300 dark:border-gray-600 rounded
                 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
                 focus:ring-1 focus:ring-blue-500 focus:border-blue-500
+                max-sm:text-xs max-sm:p-0.5
               `}
               type={type}
               value={state[key]}
@@ -84,6 +86,7 @@ export const PrimaryNode = ({
             border-2 border-white dark:border-gray-800
             hover:bg-blue-600 dark:hover:bg-blue-500
             transition-colors duration-200
+            max-sm:w-2.5 max-sm:h-2.5
           `}
           style={h.style || {}}
         />
@@ -109,7 +112,7 @@ export const ToggleNode = ({ id, data }) => {
           key: 'isEnabled', 
           type: 'select', 
           options: ['true', 'false'],
-          inputProps: { className: 'capitalize' }
+          inputProps: { className: 'capitalize max-sm:text-xs' }
         },
       ]}
       handles={[
