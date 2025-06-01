@@ -17,7 +17,7 @@ export const PipelineToolbar = () => {
         </div>
       </div>
 
-      <h1 className="[&_*]:dark:text-white font-semibold text-xl sm:text-2xl text-white whitespace-nowrap max-sm:text-lg max-sm:mx-auto">
+      <h1 className="[&_*]:dark:!text-white font-semibold text-xl sm:text-2xl text-white whitespace-nowrap max-sm:text-lg max-sm:mx-auto">
         <TextHoverEffect text="VectorShift" />
       </h1>
 
