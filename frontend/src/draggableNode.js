@@ -12,7 +12,9 @@ export const DraggableNode = ({ type, label }) => {
   return (
     <div
       className={`
-        cursor-grab min-w-[80px] h-[60px]
+        cursor-grab 
+        min-w-[70px] xs:min-w-[80px]  // Slightly smaller on very small screens
+        h-[50px] xs:h-[60px]          // Smaller height on mobile
         flex items-center justify-center flex-col
         rounded-lg border-2
         bg-white dark:bg-[#1E293B]
@@ -25,13 +27,14 @@ export const DraggableNode = ({ type, label }) => {
         hover:scale-[1.02] active:scale-[0.98]
         hover:shadow-md active:shadow-sm
         active:bg-slate-100 dark:active:bg-[#1E293B]
+        text-xs xs:text-sm             // Smaller text on mobile
+        px-2                          // Add some horizontal padding
       `}
       onDragStart={(event) => onDragStart(event, type)}
       onDragEnd={(event) => (event.target.style.cursor = "grab")}
       draggable
     >
-      <span className="font-medium text-sm">{label}</span>
-     
+      <span className="font-medium">{label}</span>
     </div>
   );
 };

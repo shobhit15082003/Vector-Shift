@@ -90,7 +90,7 @@ export const PipelineUI = () => {
   return (
     <div
       ref={reactFlowWrapper}
-      className="w-[98vw] mb-4 mx-4 h-[72vh] bg-[#f8fafc] dark:bg-[#afc2e3] rounded-lg shadow-sm border border-[#e2e8f0] dark:border-[#2d3748] "
+      className="w-[98vw] mb-5 mx-4 h-[72vh] bg-[#f8fafc] dark:bg-[#afc2e3] rounded-lg shadow-sm border border-[#e2e8f0] dark:border-[#2d3748] max-sm:w-[96vw] max-sm:mx-2 max-sm:h-[60vh]"
     >
       <ReactFlow
         nodes={nodes}
@@ -105,6 +105,7 @@ export const PipelineUI = () => {
         proOptions={proOptions}
         snapGrid={[gridSize, gridSize]}
         connectionLineType="smoothstep"
+        minZoom={0.5}
       >
         
         <Background 
@@ -120,13 +121,17 @@ export const PipelineUI = () => {
           className="[&>button]:bg-white [&>button]:shadow-sm [&>button]:border [&>button]:border-gray-200
                     hover:[&>button]:bg-gray-50
                     [&>button]:dark:bg-gray-700 [&>button]:dark:border-gray-600
-                    hover:[&>button]:dark:bg-gray-600"
+                    hover:[&>button]:dark:bg-gray-600
+                    max-sm:[&>button]:p-1 max-sm:[&>button]:text-xs"
         />
         
         <MiniMap 
           nodeColor="#e2e8f0"
           darkNodeColor="#4a5568"
-          className="bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden transition duration-300 ease-in-out hover:scale-105  hover:border-slate-500 hover:dark:border-blue-800"
+          className="bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden transition duration-300 ease-in-out hover:scale-105  hover:border-slate-500 hover:dark:border-blue-800
+                     max-sm:scale-75 max-sm:bottom-2 max-sm:right-2 max-sm:hover:scale-90"
+          zoomable
+          pannable
         />
       </ReactFlow>
     </div>
