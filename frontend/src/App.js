@@ -6,7 +6,7 @@ import { SubmitButton } from './submit';
 function App() {
   return (
 
-    <div className='bg-[#F8FAFC ] h-[100vh] dark:bg-[#0F172A] overflow-hidden'>
+    <div className='bg-[#F8FAFC ] h-[100vh] dark:bg-[#0F172A] overflow-y-scroll overflow-x-hidden'>
    
       <PipelineToolbar />
       <PipelineUI />
