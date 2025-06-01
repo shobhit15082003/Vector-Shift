@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
 
 const ThemeToggle = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    // First check localStorage, then system preference
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('color-theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
 
-  // Initialize theme
+  // Apply theme changes and save to localStorage
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setDarkMode(savedTheme ? savedTheme === 'dark' : systemDark);
-  }, []);
-
-  // Apply theme changes
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('color-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('color-theme', 'light');
+    }
   }, [darkMode]);
 
   return (
@@ -54,7 +60,7 @@ const ThemeToggle = () => {
           <div className="relative h-4 w-4">
             <div className="absolute inset-0 rounded-full bg-gray-100" />
             <div 
-              className="absolute top-0 left-[5px] h-4 w-4 rounded-full bg-indigo-950 transition-all duration-300"
+              className="absolute top-0 left-[5px] h-4 w-4 rounded-full bg-indigo-950"
               style={{ clipPath: 'circle(40% at 30% 50%)' }}
             />
             <div className="absolute top-1 left-2 h-1 w-1 rounded-full bg-gray-300 opacity-80" />
