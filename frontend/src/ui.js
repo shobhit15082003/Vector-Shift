@@ -9,6 +9,8 @@ import { ImageNode } from './nodes/imageNode';
 import 'reactflow/dist/style.css';
 import { MathNode } from './nodes/MathNode';
 import { ToggleNode } from './nodes/ToggleNode';
+import { DropDownNode } from './nodes/DropDownNode';
+import { LabelNode } from './nodes/LabelNode';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -20,6 +22,8 @@ const nodeTypes = {
   image: ImageNode,
   math: MathNode,
   toggle: ToggleNode,
+  dropDown: DropDownNode,
+  label:LabelNode,
 };
 
 export const PipelineUI = () => {
@@ -83,7 +87,7 @@ export const PipelineUI = () => {
   return (
     <div
       ref={reactFlowWrapper}
-      className="w-[98vw] mb-5 mx-4 h-[72vh] bg-[#f8fafc] dark:bg-[#afc2e3] rounded-lg shadow-sm border border-[#e2e8f0] dark:border-[#2d3748] max-sm:w-[96vw] max-sm:mx-2 max-sm:h-[60vh]"
+      className="w-[98vw] mb-5 mx-4 h-[65vh] bg-[#f8fafc] dark:bg-[#afc2e3] rounded-lg shadow-sm border border-[#26518a] dark:border-2 dark:border-[#eeeff1] max-sm:w-[96vw] max-sm:mx-2 max-sm:h-[60vh]"
     >
       <ReactFlow
         nodes={nodes}

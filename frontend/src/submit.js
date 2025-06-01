@@ -54,7 +54,7 @@ export const SubmitButton = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full px-2 max-sm:mb-3">
+    <div className="flex items-center justify-center w-full px-2 max-sm:mb-3 ">
       <Button 
         onClick={handleSubmit}
         type="button"
@@ -68,10 +68,10 @@ export const SubmitButton = () => {
         active:scale-[0.98] 
         shadow-sm hover:shadow-md
         px-6 py-2 sm:px-8 sm:py-3 rounded-lg
-        w-full sm:w-auto max-w-md
+        w-full sm:w-auto 
         max-sm:text-base max-sm:px-4 max-sm:py-2"
-      >
-        Submit Pipeline
+      ><span className="">Submit Pipeline</span>
+        
       </Button>
     </div>
   );

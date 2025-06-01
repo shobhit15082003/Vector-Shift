@@ -15,7 +15,7 @@ export const LabelNode = ({ id, data }) => {
         { type: 'source', position: Position.Right, id: 'out' },
       ]}
     >
-      <div>{labelText}</div>
+      <div className='dark:text-white font-light'>{labelText}</div>
     </PrimaryNode>
   );
 };
