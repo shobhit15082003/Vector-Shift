@@ -15,7 +15,7 @@ export const LLMNode = ({ id }) => {
         { type: 'source', position: Position.Right, id: 'response' },
       ]}
     >
-      <span>This is a LLM.</span>
+      <span className='dark:text-white font-normal'>This is a LLM.</span>
     </PrimaryNode>
   );
 };

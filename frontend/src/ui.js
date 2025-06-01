@@ -1,7 +1,3 @@
-// ui.js
-// Displays the drag-and-drop UI
-// --------------------------------------------------
-
 import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from './store';
@@ -10,10 +6,10 @@ import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
-
+import {ImageNode} from './nodes/imageNode';
 import 'reactflow/dist/style.css';
-
-
+import { MathNode } from './nodes/MathNode';
+import { ToggleNode } from './nodes/ToggleNode';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -22,6 +18,9 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  image: ImageNode,
+  math: MathNode,
+  toggle: ToggleNode,
 };
 
 const selector = (state) => ({
@@ -89,11 +88,9 @@ export const PipelineUI = () => {
   }, []);
 
   return (
-    <>
-    
     <div
       ref={reactFlowWrapper}
-      className="w-[98vw] mx-4 h-[72vh] bg-white rounded-lg shadow-md overflow-hidden mb-5 border border-gray-300 dark:border-gray-600"
+      className="w-[98vw] mb-4 mx-4 h-[72vh] bg-[#f8fafc] dark:bg-[#afc2e3] rounded-lg shadow-sm border border-[#e2e8f0] dark:border-[#2d3748] "
     >
       <ReactFlow
         nodes={nodes}
@@ -109,11 +106,29 @@ export const PipelineUI = () => {
         snapGrid={[gridSize, gridSize]}
         connectionLineType="smoothstep"
       >
-        <Background color="#aaa"  gap={gridSize} />
-        <Controls/>
-        <MiniMap />
+        
+        <Background 
+          variant="dots"
+          color="#94a3b8"  
+          darkColor="#38465a"  
+          gap={gridSize}
+          size={1.5} 
+          className="opacity-80" 
+        />
+        
+        <Controls 
+          className="[&>button]:bg-white [&>button]:shadow-sm [&>button]:border [&>button]:border-gray-200
+                    hover:[&>button]:bg-gray-50
+                    [&>button]:dark:bg-gray-700 [&>button]:dark:border-gray-600
+                    hover:[&>button]:dark:bg-gray-600"
+        />
+        
+        <MiniMap 
+          nodeColor="#e2e8f0"
+          darkNodeColor="#4a5568"
+          className="bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden transition duration-300 ease-in-out hover:scale-105  hover:border-slate-500 hover:dark:border-blue-800"
+        />
       </ReactFlow>
     </div>
-    </>
   );
 };

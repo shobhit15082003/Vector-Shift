@@ -1,5 +1,6 @@
 import { DraggableNode } from "./draggableNode";
 import ThemeToggle from "./ThemeToggle";
+import { TextHoverEffect } from "../src/components/ui/text-hover-effect";
 
 export const PipelineToolbar = () => {
   return (
@@ -15,7 +16,7 @@ export const PipelineToolbar = () => {
           <DraggableNode type="toggle" label="Toggle" />
         </div>
       </div>
-      
+      <h1 className="[&_*]:dark:text-white font-semibold text-2xl text-white"><TextHoverEffect  text="VectorShift" /></h1>
       <div className="pr-4">
         <ThemeToggle />
       </div>
